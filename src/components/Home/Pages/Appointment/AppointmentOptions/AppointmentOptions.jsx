@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import Appointment from '../Appointment/Appointment';
 import AppointmentOption from '../AppointmentOption/AppointmentOption';
+import BookingModal from '../BookingModal/BookingModal';
 
-const AppointmentOptions = () => {
+const AppointmentOptions = ({selectedDate}) => {
     const [appointmentOptions, setAppointmentOptions] = useState([]);
+    const [option, setOption] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch('appointmentOptions.json')
-        .then(res => res.json())
-        .then(data => setAppointmentOptions(data))
-    },[])
+            .then(res => res.json())
+            .then(data => setAppointmentOptions(data))
+    }, [])
     return (
-        <section className='grid grid-cols-1 lg:grid-cols-3 gap-16 my-16'>
+        <section >
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-16 my-16'>
+                {
+                    appointmentOptions.map(appointmentOption => <AppointmentOption
+                        appointmentOption={appointmentOption}
+                        key={appointmentOption._id}
+                        setOption={setOption}
+                    ></AppointmentOption>)
+                }
+            </div>
             {
-                appointmentOptions.map(appointmentOption => <AppointmentOption
-                appointmentOption={appointmentOption}
-                ></AppointmentOption>)
+                option &&
+                <BookingModal
+                    option={option}
+                    selectedDate={selectedDate}
+                    setOption={setOption}
+                ></BookingModal>
             }
         </section>
     );

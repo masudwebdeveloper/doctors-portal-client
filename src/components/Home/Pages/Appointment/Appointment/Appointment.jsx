@@ -16,7 +16,6 @@ const Appointment = () => {
             <AvailableAppointment
                 selectedDate={selectedDate}
             ></AvailableAppointment>
-            <AppointmentOptions></AppointmentOptions>
         </div>
     );
 };
