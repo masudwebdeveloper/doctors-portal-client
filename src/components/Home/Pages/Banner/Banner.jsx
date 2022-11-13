@@ -44,7 +44,7 @@ const Banner = () => {
 
                     </div>
                 </div>
-
+                {/* for Info card */}
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-10'>
                     {
                         infoData.map(card => <InfoCard
