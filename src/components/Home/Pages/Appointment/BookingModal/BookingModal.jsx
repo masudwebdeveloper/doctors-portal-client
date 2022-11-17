@@ -1,31 +1,53 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { AuthContext } from '../../../../../contexts/AuthProvider';
 
-const BookingModal = ({ option, selectedDate,setOption }) => {
-    const { name, slots } = option; // option is a appointmentoption
+const BookingModal = ({ option, selectedDate, setOption, refetch }) => {
+    const { user } = useContext(AuthContext)
+    const { _id, name, slots } = option; // option is a appointmentoption
     const date = format(selectedDate, "PP")
-    let d = new Date(241654564555);
-    d.getDate()
-    const today = format(d, 'PP')
+
 
     const handleAppointment = (event) => {
         event.preventDefault();
         const form = event.target;
         const slot = form.slot.value;
         const patientName = form.name.value;
-        const email =form.email.value;
+        const email = form.email.value;
         const phone = form.phone.value;
 
         const booking = {
-            appoinmentDate: date,
+            bookingId: _id,
+            appointmentDate: date,
             slot,
             treatMent: name,
             patient: patientName,
             email,
             phone,
         }
-        console.log(booking);
-        setOption(null)
+        fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Booking Confirmed')
+                    setOption(null)
+                    refetch();
+                } else {
+                    toast.error(data.message)
+                    setOption(null)
+
+                }
+            })
+            .catch(error => {
+                console.error('Booking post Error: ', error);
+            })
 
     }
     return (
@@ -42,10 +64,10 @@ const BookingModal = ({ option, selectedDate,setOption }) => {
                                 slots.map((slot, index) => <option key={index} value={slot}>{slot}</option>)
                             }
                         </select>
-                        <input name='name' type="text" placeholder="your name" className="input input-bordered w-full" required/>
-                        <input name='email' type="email" placeholder="your email" value={today} className="input input-bordered w-full" required/>
-                        <input name='phone' type="text" placeholder="your phone number" className="input input-bordered w-full" required/>
-                        <input type="submit" value="Submit" className='w-full btn-accent py-2 font-bold text-2xl rounded-lg' />
+                        <input name='name' type="text" placeholder="your name" className="input input-bordered w-full" required />
+                        <input name='email' defaultValue={user?.email} type="email" placeholder="your email" disabled className="input input-bordered w-full" required />
+                        <input name='phone' min='11' max='15' type="text" placeholder="your phone number" className="input input-bordered w-full" required />
+                        <input type="submit" value="Submit" className='w-full btn-accent py-2 font-bold text-2xl rounded-lg' required />
                     </form>
                 </div>
             </div>

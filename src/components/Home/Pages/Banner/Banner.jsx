@@ -5,6 +5,7 @@ import clock from '../../../../assets/icons/clock.svg'
 import marker from '../../../../assets/icons/marker.svg'
 import phone from '../../../../assets/icons/phone.svg'
 import PrimaryButton from '../../../Button/PrimaryButton/PrimaryButton';
+import { TypeAnimation } from 'react-type-animation';
 
 
 const Banner = () => {
@@ -36,9 +37,21 @@ const Banner = () => {
             <div className="hero-overlay bg-base-100 bg-opacity-95"></div>
             <div>
                 <div className="hero-content flex-col lg:flex-row-reverse max-w-full px-2 lg:px-10 lg:py-20">
-                    <img alt='' src={image} className="w-full lg:w-[700px] rounded-lg shadow-2xl" />
-                    <div className='lg:px-10'>
-                        <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
+                    <img alt='' src={image} className="w-full lg:w-2/5 rounded-lg shadow-2xl" />
+                    <div className='lg:px-10 w-full lg:w-3/5'>
+                        <TypeAnimation
+                            sequence={[
+                                'Your New Smile Starts Here',
+                                3000,
+                                '',
+                                ()=>{}
+                            ]}
+                            wrapper="div"
+                            cursor={true}
+                            repeat={Infinity}
+                            className='bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary'
+                            style={{ fontSize: '3em', fontWeight: '700'}}
+                        />
                         <p className="py-6">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the</p>
                         <PrimaryButton>Get Started</PrimaryButton>
 
@@ -48,8 +61,8 @@ const Banner = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-10'>
                     {
                         infoData.map(card => <InfoCard
-                        key={card.id}
-                        card={card}
+                            key={card.id}
+                            card={card}
                         ></InfoCard>)
                     }
                 </div>

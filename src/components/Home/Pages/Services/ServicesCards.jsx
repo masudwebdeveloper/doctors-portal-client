@@ -5,6 +5,8 @@ import whitening from '../../../../assets/images/whitening.png'
 import treatment from '../../../../assets/images/treatment.png'
 import ServicesCard from './ServicesCard';
 import PrimaryButton from '../../../Button/PrimaryButton/PrimaryButton';
+import { SiMediafire } from 'react-icons/si';
+import image from '../../../../assets/images/roket.png'
 
 const ServicesCards = () => {
     const servicesData = [
