@@ -8,7 +8,7 @@ const AppointmentOptions = ({ selectedDate }) => {
     const [option, setOption] = useState(null);
     const date = format(selectedDate, "PP");
 
-    const { data: appointmentOptions = [], refetch, isLoading } = useQuery({
+    const { data: appointmentOptions = [], refetch,  isLoading } = useQuery({
         queryKey: ['appointmentOptions', date],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`)

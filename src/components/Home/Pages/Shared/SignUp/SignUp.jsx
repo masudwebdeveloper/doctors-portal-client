@@ -52,7 +52,7 @@ const SignUp = () => {
             setCreateUserEmail(email)
          })
          .catch(err => {
-            console.error('saveuser error', err);
+            console.error('saveUser error', err);
          })
    }
 
