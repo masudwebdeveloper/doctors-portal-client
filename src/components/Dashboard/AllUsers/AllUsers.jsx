@@ -49,8 +49,8 @@ const AllUsers = () => {
                         {
                             users.map((user, i) => <tr key={user._id} className="hover">
                                 <th>{i + 1}</th>
-                                <td>{user.name}</td>
-                                <td>Desktop Support Technician</td>
+                                <td>{user?.name}</td>
+                                <td>{user?.email}</td>
                                 <td>
                                     {
                                         user?.role !== 'admin' && <button onClick={()=> handleAdmin(user?._id)} className='btn btn-xs btn-secondary'>Make Admin</button>
