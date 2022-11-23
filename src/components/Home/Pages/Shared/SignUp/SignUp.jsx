@@ -5,7 +5,7 @@ import { AuthContext } from '../../../../../contexts/AuthProvider';
 import useToken from '../../../../../hooks/useToken/useToken';
 
 const SignUp = () => {
-   const [passwordShow, setPasswordShow] = useState();
+   const [passwordShow, setPasswordShow] = useState('');
    const [signUpError, setSignUpError] = useState('')
    const { register, handleSubmit, formState: { errors } } = useForm();
    const { createUser, updateUser } = useContext(AuthContext);
